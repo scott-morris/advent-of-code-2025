@@ -26,3 +26,21 @@ export function part1(turns: Turn[]): { value: number; steps: number[] } {
     steps,
   };
 }
+
+export function part2(turns: Turn[]): number {
+  // Start at position 50 in a cycle from 0 to 99
+  const cycle = new Cycle(99, 0, 50);
+  const steps: number[] = [];
+
+  // Process each turn
+  for (const turn of turns) {
+    if (turn.direction === 'L') {
+      cycle.subtract(turn.distance);
+    } else if (turn.direction === 'R') {
+      cycle.add(turn.distance);
+    }
+    steps.push(cycle.value);
+  }
+  
+  return cycle.zeroCrossings;
+}
